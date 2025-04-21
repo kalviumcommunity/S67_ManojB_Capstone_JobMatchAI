@@ -10,7 +10,7 @@ userRouter.get("/get-user", async(req,res)=>{
     return res.status(200).json({user:user});
 });
 
-userRouter.post("/-usercreate",upload.single("avatar"), async(req,res,next)=>{
+userRouter.post("/create-user",upload.single("avatar"), async(req,res,next)=>{
     const {name, email, password} = req.body;
     const userEmail = await userModel.findOne({email:email});
     if (userEmail) {
