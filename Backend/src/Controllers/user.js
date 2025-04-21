@@ -38,7 +38,7 @@ userRouter.post("/create-user",upload.single("avatar"), async(req,res,next)=>{
 
 });
 
-userRouter.put("/update-user/:id", upload.single("avatar"), async (req, res) => {
+userRouter.put("/update-user/:id", async (req, res) => {
     try {
         const { id } = req.params;
         const { name, email } = req.body;
@@ -51,15 +51,15 @@ userRouter.put("/update-user/:id", upload.single("avatar"), async (req, res) => 
         user.name = name || user.name;
         user.email = email || user.email;
 
-        if (req.file) {
-            const filename = req.file.filename;
-            const fileUrl = `/uploads/${filename}`;
+        // if (req.file) {
+        //     const filename = req.file.filename;
+        //     const fileUrl = `/uploads/${filename}`;
 
-            user.avatar = {
-                url: fileUrl,
-                public_id: filename
-            };
-        }
+        //     user.avatar = {
+        //         url: fileUrl,
+        //         public_id: filename
+        //     };
+        // }
 
         const updatedUser = await user.save();
 
