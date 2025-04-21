@@ -1,6 +1,6 @@
 const {Router} = require('express');
 const bcrypt = require("bcrypt");
-
+const userModel = require("../Model/userModel");
 const userRouter = Router();
 userRouter.get("/get-user", async(req,res)=>{
     const user = req.user;
@@ -10,7 +10,7 @@ userRouter.get("/get-user", async(req,res)=>{
     return res.status(200).json({user:user});
 });
 
-userRouter.post("/create-user",upload.single("avatar"), async(req,res,next)=>{
+userRouter.post("/create-user", async(req,res,next)=>{
     const {name, email, password} = req.body;
     const userEmail = await userModel.findOne({email:email});
     if (userEmail) {
@@ -20,18 +20,11 @@ userRouter.post("/create-user",upload.single("avatar"), async(req,res,next)=>{
         return res.status(400).json({ error: "Avatar upload failed" });
       }
       
-    const filename = req.file.filename ;
-    const fileUrl = `/uploads/${filename}`;
     bcrypt.hash(password, 10, async (err, hash)=>{
         await userModel.create({
                 name:name,
                 email:email,
                 password:hash,
-                avatar: {
-                    url:fileUrl,
-                    public_id:filename
-                },
-            
         })
         return res.status(200).json({message: "User created"});
     })
@@ -50,16 +43,6 @@ userRouter.put("/update-user/:id", async (req, res) => {
 
         user.name = name || user.name;
         user.email = email || user.email;
-
-        // if (req.file) {
-        //     const filename = req.file.filename;
-        //     const fileUrl = `/uploads/${filename}`;
-
-        //     user.avatar = {
-        //         url: fileUrl,
-        //         public_id: filename
-        //     };
-        // }
 
         const updatedUser = await user.save();
 
