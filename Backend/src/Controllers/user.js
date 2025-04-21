@@ -16,9 +16,6 @@ userRouter.post("/create-user", async(req,res,next)=>{
     if (userEmail) {
         return res.status(400).json({error: "User already exists"});
       }
-      if (!req.file) {
-        return res.status(400).json({ error: "Avatar upload failed" });
-      }
       
     bcrypt.hash(password, 10, async (err, hash)=>{
         await userModel.create({
