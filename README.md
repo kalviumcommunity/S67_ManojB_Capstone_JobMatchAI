@@ -115,6 +115,9 @@ Collected feedback from users/testers. Made necessary improvements.
 Day 28:
 Wrote documentation (README, API docs, setup guide).
 
+## Front-end link
+
+- https://jobmatchai1.netlify.app/
 
 
 . Manoj B (Squad 67)
