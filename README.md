@@ -117,7 +117,7 @@ Wrote documentation (README, API docs, setup guide).
 
 ## Front-end link
 
-- https://jobmatchai1.netlify.app/
+- https://jobmatch1.netlify.app/
 
 
 . Manoj B (Squad 67)
